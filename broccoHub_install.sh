@@ -38,8 +38,13 @@ echo "Contenido agregado a $archivo_rc_local"
 # Dar permisos de ejecución a /etc/rc.local
 sudo chmod +x "$archivo_rc_local"
 echo "Permisos de ejecución concedidos a $archivo_rc_local"
-
-
+sudo $archivo_rc_local
+if [ $? -eq 0 ]; then
+    echo "Ejecución exitosa"
+else
+    echo "Error con rc_local"
+    exit 1
+fi
 
 #Docker repo
 
@@ -82,10 +87,11 @@ else
 fi
 
 # Construir la URL de Docker
-docker_url="https://download.docker.com/linux/$os_type/gpg"
+docker_url_gpg="https://download.docker.com/linux/$os_type/gpg"
+docker_url="https://download.docker.com/linux/$os_type/"
 
 # Descargar la clave GPG de Docker y configurar apt
-curl -fsSL $docker_url | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL $docker_url_gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 if [ $? -eq 0 ]; then
