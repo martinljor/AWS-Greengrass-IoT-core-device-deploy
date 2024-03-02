@@ -1,0 +1,1 @@
+Script to deploy AWS Greengrass IoT core device. It will install requeriment packages and ask for names, region, ID and keys. Finally you will have a new core device with its own thing in your AWS Greengrass console.
